@@ -6,7 +6,7 @@ Jest przeznaczona dla każdej osoby mieszkającej w powiecie cieszyńskim, lub z
 jest ona napisana w Android Studio.
 Aplikacja składa się ze strony głównej posiadają mapę powiatu, po kliknięciu na daną gmine wyświetla się prognoza pogody.
 
-Lista funkcji:
+# Lista funkcji:
 - sprawdzanie pogody dla każdej gminy i całego powiatu
 - prognoza godzinowa
 - prognoza do 3 dni
