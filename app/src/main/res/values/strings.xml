@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Pogoda</string>
-    <string name="header">Mapka powiatu</string>
+    <string name="header">Powiat Cieszyński</string>
     <string name="map_description">mapa województw</string>
 </resources>
