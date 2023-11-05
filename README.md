@@ -7,7 +7,7 @@ jest ona napisana w Android Studio.
 Aplikacja składa się ze strony głównej posiadają mapę powiatu, po kliknięciu na daną gmine wyświetla się prognoza pogody.
 
 # Lista funkcji:
-- sprawdzanie pogody dla każdej gminy i całego powiatu
+- sprawdzanie pogody dla każdej gminy
 - prognoza godzinowa
 - prognoza do 3 dni
 - wykaz temperatury, wilgotości, zachmurzenie, wiatr
