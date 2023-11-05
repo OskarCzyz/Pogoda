@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_blue"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
@@ -37,11 +38,12 @@
 
 
     <TextView
+        android:padding="5sp"
         android:id="@+id/tvChybie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Chybie"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.556"
@@ -51,11 +53,12 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
+        android:padding="5sp"
         android:id="@+id/tvStrumien"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Strumień"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.38"
@@ -68,49 +71,53 @@
         android:id="@+id/tvZebrzydowice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="5sp"
         android:text="Zebrzydowice"
-        android:textSize="9sp"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
 
-        app:layout_constraintHorizontal_bias="0.129"
+        app:layout_constraintHorizontal_bias="0.138"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.176" />
+        app:layout_constraintVertical_bias="0.162" />
 
     <TextView
+        android:padding="5sp"
         android:id="@+id/tvSkoczow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Skoczów"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.285" />
+        app:layout_constraintVertical_bias="0.256" />
 
     <TextView
+        android:padding="5sp"
         android:id="@+id/tvDebowiec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dębowiec"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.373"
+        app:layout_constraintHorizontal_bias="0.374"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.312" />
+        app:layout_constraintVertical_bias="0.313" />
 
     <TextView
+        android:padding="5sp"
         android:id="@+id/tvIstebna"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Istebna"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.701"
@@ -119,11 +126,12 @@
         app:layout_constraintVertical_bias="0.844" />
 
     <TextView
+        android:padding="5sp"
         android:id="@+id/tvWisla"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Wisła"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
@@ -132,11 +140,12 @@
         app:layout_constraintVertical_bias="0.687" />
 
     <TextView
+        android:padding="5sp"
         android:id="@+id/tvBrenna"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Brenna"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.76"
@@ -145,11 +154,12 @@
         app:layout_constraintVertical_bias="0.523" />
 
     <TextView
+        android:padding="5sp"
         android:id="@+id/tvUstron"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ustroń"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.557"
@@ -158,11 +168,12 @@
         app:layout_constraintVertical_bias="0.525" />
 
     <TextView
+        android:padding="5sp"
         android:id="@+id/tvGoleszow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Goleszów"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.383"
@@ -171,11 +182,12 @@
         app:layout_constraintVertical_bias="0.498" />
 
     <TextView
+        android:padding="5sp"
         android:id="@+id/tvCieszyn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cieszyn"
-        android:textSize="10sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.246"
@@ -184,18 +196,18 @@
         app:layout_constraintVertical_bias="0.431" />
 
     <TextView
+        android:padding="5sp"
         android:id="@+id/tvHazlach"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hazlach"
-        android:textSize="10sp"
+        android:text="Haźlach"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.242"
+        app:layout_constraintHorizontal_bias="0.199"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.312" />
-
+        app:layout_constraintVertical_bias="0.329" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
