@@ -2,35 +2,26 @@ package com.example.pogoda;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class GminaActivity extends AppCompatActivity {
 
@@ -38,11 +29,7 @@ public class GminaActivity extends AppCompatActivity {
 
     private ImageView ivStatus;
 
-    private ListView listView;
-
-    private List<String> temperatures = new ArrayList<>();
-
-
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +46,24 @@ public class GminaActivity extends AppCompatActivity {
 
         tvTitle = findViewById(R.id.tvTitle);
         ivStatus = findViewById(R.id.ivStatus);
-        listView = findViewById(R.id.listView);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(GminaActivity.this, android.R.layout.simple_list_item_1, temperatures);
-        listView.setAdapter(adapter);
-
-
+        recyclerView = findViewById(R.id.recyclerView);
+        ArrayList<Day> days = Day.createDayList(7);
+        DaysAdapter adapter = new DaysAdapter(days);
+        recyclerView.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(GminaActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(GminaActivity.this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(GminaActivity.this,DayActivity.class);
+                startActivity(intent);
+            }
+            @Override
+            public void onLongItemClick(View view, int position) {
+                Intent intent = new Intent(GminaActivity.this,DayActivity.class);
+                startActivity(intent);
+            }
+        }));
         String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m&timezone=auto&forecast_days=1";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
@@ -109,7 +108,7 @@ public class GminaActivity extends AppCompatActivity {
 
                     JSONObject hourly = response.getJSONObject("hourly");
                     for (int i =0; i < 24; i++) {
-                        temperatures.add(hourly.getJSONArray("time").getString(i) + " " + hourly.getJSONArray("temperature_2m").getString(i));
+
                     }
                     adapter.notifyDataSetChanged();
 

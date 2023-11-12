@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context=".GminaActivity">
 
-
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
@@ -19,7 +18,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Prosze Czekac" />
+            tools:text="Proszę Czekać" />
 
         <LinearLayout
             android:paddingTop="40dp"
@@ -37,13 +36,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ListView
-                    android:id="@+id/listView"
-                    android:layout_weight="2"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"/>
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+
+                        />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
         </LinearLayout>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
