@@ -64,7 +64,7 @@ public class GminaActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }));
-        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m&timezone=auto&forecast_days=1";
+        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m&timezone=auto&forecast_days=7";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @SuppressLint("SetTextI18n")
@@ -73,12 +73,12 @@ public class GminaActivity extends AppCompatActivity {
                 try {
                     JSONObject current = response.getJSONObject("current");
                     switch (current.getInt("weather_code")) {
-                        case 0:
-                        case 1: ivStatus.setImageResource(R.drawable.clear_status); break;
+                        case 0: ivStatus.setImageResource(R.drawable.status_fullclear); break;
+                        case 1: ivStatus.setImageResource(R.drawable.status_clear); break;
                         case 2:
-                        case 3: ivStatus.setImageResource(R.drawable.cloudy_status); break;
+                        case 3: ivStatus.setImageResource(R.drawable.status_cloudy); break;
                         case 45:
-                        case 48: ivStatus.setImageResource(R.drawable.foggy_status); break;
+                        case 48: ivStatus.setImageResource(R.drawable.status_foggy); break;
                         case 51:
                         case 53:
                         case 55:
@@ -88,28 +88,24 @@ public class GminaActivity extends AppCompatActivity {
                         case 63:
                         case 65:
                         case 66:
-                        case 67: ivStatus.setImageResource(R.drawable.rain_status); break;
+                        case 67: ivStatus.setImageResource(R.drawable.status_rain); break;
                         case 71:
                         case 73:
                         case 75:
                         case 85:
                         case 86:
-                        case 77: ivStatus.setImageResource(R.drawable.snow_status); break;
+                        case 77: ivStatus.setImageResource(R.drawable.status_snow); break;
                         case 80:
                         case 81:
-                        case 82: ivStatus.setImageResource(R.drawable.rainshowers_status); break;
+                        case 82: ivStatus.setImageResource(R.drawable.status_rainshowers); break;
                         case 95:
                         case 96:
-                        case 99: ivStatus.setImageResource(R.drawable.thunderstorm_status); break;
+                        case 99: ivStatus.setImageResource(R.drawable.status_thunderstorm); break;
                         default: break;
                     }
 
                     tvTitle.setText(getIntent().getStringExtra("Name"));
 
-                    JSONObject hourly = response.getJSONObject("hourly");
-                    for (int i =0; i < 24; i++) {
-
-                    }
                     adapter.notifyDataSetChanged();
 
 
