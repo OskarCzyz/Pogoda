@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,29 +50,15 @@ public class GminaActivity extends AppCompatActivity {
         ivStatus = findViewById(R.id.ivStatus);
         recyclerView = findViewById(R.id.recyclerView);
         ArrayList<Day> days = Day.createDayList(7);
-        DaysAdapter adapter = new DaysAdapter(days);
-        recyclerView.setAdapter(adapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(GminaActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(GminaActivity.this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(GminaActivity.this,DayActivity.class);
-                startActivity(intent);
-            }
-            @Override
-            public void onLongItemClick(View view, int position) {
-                Intent intent = new Intent(GminaActivity.this,DayActivity.class);
-                startActivity(intent);
-            }
-        }));
-        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m&timezone=auto&forecast_days=7";
 
+
+        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m&timezone=auto&forecast_days=7";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
-            @SuppressLint("SetTextI18n")
+            @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    // Wybor obrazka z tylu
                     JSONObject current = response.getJSONObject("current");
                     switch (current.getInt("weather_code")) {
                         case 0: ivStatus.setImageResource(R.drawable.status_fullclear); break;
@@ -104,11 +92,36 @@ public class GminaActivity extends AppCompatActivity {
                         default: break;
                     }
 
+                    // ustawienie nazwy gminy
                     tvTitle.setText(getIntent().getStringExtra("Name"));
 
-                    adapter.notifyDataSetChanged();
+                    JSONObject hourly = response.getJSONObject("hourly");
+                    JSONArray temperature_2m = hourly.getJSONArray("temperature_2m");
+                    for (int i = 0; i < 7; i++) {
+                        days.get(i).setTempDay((temperature_2m.getDouble(8 + (24 * i)) + temperature_2m.getDouble(10 + (i * 24)) + temperature_2m.getDouble(12 + (24 * i)) + temperature_2m.getDouble(14 + (24 * i)) + temperature_2m.getDouble(16 + (24 * i))) / 5);
+                        days.get(i).setTempNight((temperature_2m.getDouble(20 + (24 * i)) + temperature_2m.getDouble(21 + (i * 24)) + temperature_2m.getDouble(23 + (24 * i)) + temperature_2m.getDouble(2 + (24 * i)) + temperature_2m.getDouble(3 + (24 * i)) ) / 5);
+//                        Log.d("test123", "godzina 20: " + temperature_2m.getDouble(20 + (24 * i)) + "\ngodzina 21: " + temperature_2m.getDouble(21 + (24 * i)) + "\ngodzina 23: " + temperature_2m.getDouble(23 + (24 * i)) + "\ngodzina 2: " + temperature_2m.getDouble(2 + (24 * i)) + "\ngodzina 3: " + temperature_2m.getDouble(3 + (24 * i)));
+                    }
 
 
+
+                    DaysAdapter adapter = new DaysAdapter(days);
+                    recyclerView.setAdapter(adapter);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(GminaActivity.this, LinearLayoutManager.HORIZONTAL, false);
+
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                    recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(GminaActivity.this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            Intent intent = new Intent(GminaActivity.this,DayActivity.class);
+                            startActivity(intent);
+                        }
+                        @Override
+                        public void onLongItemClick(View view, int position) {
+                            Intent intent = new Intent(GminaActivity.this,DayActivity.class);
+                            startActivity(intent);
+                        }
+                    }));
                 } catch (JSONException e ) {
                     e.printStackTrace();
                 }
@@ -121,5 +134,6 @@ public class GminaActivity extends AppCompatActivity {
         });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
+
     }
 }

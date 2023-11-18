@@ -18,7 +18,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:textAlignment="center"
-        android:textSize="24dp"/>
+        android:textSize="24sp"/>
     <ImageView
         android:id="@+id/humidityDay"
         android:background="#00F7FF"
@@ -34,7 +34,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:textAlignment="center"
-        android:textSize="24dp"/>
+        android:textSize="24sp"/>
     <ImageView
         android:id="@+id/humidityNight"
         android:background="#444"

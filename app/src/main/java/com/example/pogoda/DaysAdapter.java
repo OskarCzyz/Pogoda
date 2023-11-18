@@ -1,5 +1,6 @@
 package com.example.pogoda;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -29,26 +31,27 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     public DaysAdapter(List<Day> days){
         mDays = days;
     }
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View dayView = inflater.inflate(R.layout.dzien,parent,false);
-        ViewHolder viewHolder = new ViewHolder(dayView);
-        return viewHolder;
+        return new ViewHolder(dayView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Day day = mDays.get(position);
         TextView temperatureDay = holder.temperatureDay;
-        temperatureDay.setText(Integer.toString(day.getTempDay()) + "°C");
+        temperatureDay.setText((float)Math.round(day.getTempDay() * 10) / 10 + "°C");
         TextView temperatureNight = holder.temperatureNight;
-        temperatureNight.setText(Integer.toString(day.getTempNight())+"°C");
+        temperatureNight.setText((float)Math.round(day.getTempNight() * 10) / 10 + "°C");
         ImageView humidityDay = holder.humidityDay;
-        humidityDay.setImageResource(R.drawable.icons8cloudlightning100);
+        humidityDay.setImageResource(day.getImageDay());
         ImageView humidityNight = holder.humidityNight;
-        humidityNight.setImageResource(R.drawable.icons8cloud100);
+        humidityNight.setImageResource(day.getImageNight());
 
     }
 

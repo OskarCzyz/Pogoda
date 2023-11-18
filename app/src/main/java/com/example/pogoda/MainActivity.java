@@ -96,6 +96,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (name.equals("Zebrzydowice")) {
             latitude = 49.8779;
             longitude = 18.6113;
+        } else if (name.equals("Dębowiec")) {
+            latitude = 49.8141;
+            longitude = 18.7206;
         }
 
         Intent intent = new Intent(MainActivity.this, GminaActivity.class);
