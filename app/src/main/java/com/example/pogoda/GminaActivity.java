@@ -27,6 +27,8 @@ import java.util.ArrayList;
 
 public class GminaActivity extends AppCompatActivity {
 
+    public static final String KEY_DAY = "data";
+
     private TextView tvTitle;
 
     private ImageView ivStatus;
