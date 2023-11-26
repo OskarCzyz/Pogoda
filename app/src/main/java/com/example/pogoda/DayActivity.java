@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.service.autofill.OnClickAction;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -46,22 +47,34 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     }
     private List<Entry> getDataSetTemperute() {
         List<Entry> lineEntries = new ArrayList<>();
+        String temperature_2m = "";
+        if (getIntent().hasExtra("temperature")) temperature_2m = getIntent().getStringExtra("temperature");
+        Integer position = getIntent().getIntExtra("position", 0);
+        String[] temperature = temperature_2m.substring(1, temperature_2m.length() - 1).split(",");
         for (int i = 0; i < 24; i++) {
-            lineEntries.add(new Entry(i, -5+i));
+            lineEntries.add(new Entry(i, Float.parseFloat(temperature[i + (position * 24)])));
         }
         return lineEntries;
     }
     private List<Entry> getDataSetWind() {
         List<Entry> lineEntries = new ArrayList<>();
+        String wind_speed_10m = "";
+        if (getIntent().hasExtra("wind_speed_10m")) wind_speed_10m = getIntent().getStringExtra("wind_speed_10m");
+        Integer position = getIntent().getIntExtra("position", 0);
+        String[] wind = wind_speed_10m.substring(1, wind_speed_10m.length() - 1).split(",");
         for (int i = 0; i < 24; i++) {
-            lineEntries.add(new Entry(i, i*2));
+            lineEntries.add(new Entry(i, Float.parseFloat(wind[i + (position * 24)])));
         }
         return lineEntries;
     }
     private List<Entry> getDataSetHumidity() {
         List<Entry> lineEntries = new ArrayList<>();
+        String rain = "";
+        if (getIntent().hasExtra("rain")) rain = getIntent().getStringExtra("rain");
+        Integer position = getIntent().getIntExtra("position", 0);
+        String[] rain2 = rain.substring(1, rain.length() - 1).split(",");
         for (int i = 0; i < 24; i++) {
-            lineEntries.add(new Entry(i, 10-i));
+            lineEntries.add(new Entry(i, Float.parseFloat(rain2[i + (position * 24)])));
         }
         return lineEntries;
     }

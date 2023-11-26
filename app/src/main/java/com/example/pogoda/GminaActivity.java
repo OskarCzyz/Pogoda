@@ -52,9 +52,10 @@ public class GminaActivity extends AppCompatActivity {
         ivStatus = findViewById(R.id.ivStatus);
         recyclerView = findViewById(R.id.recyclerView);
         ArrayList<Day> days = Day.createDayList(7);
+        JSONObject hourly;
 
 
-        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m&timezone=auto&forecast_days=7";
+        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m,rain,weather_code,wind_speed_10m&timezone=auto&forecast_days=7";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
             @Override
@@ -99,9 +100,46 @@ public class GminaActivity extends AppCompatActivity {
 
                     JSONObject hourly = response.getJSONObject("hourly");
                     JSONArray temperature_2m = hourly.getJSONArray("temperature_2m");
+                    JSONArray weather_code = hourly.getJSONArray("weather_code");
+                    JSONArray wind_speed_10m = hourly.getJSONArray("wind_speed_10m");
+                    JSONArray rain = hourly.getJSONArray("rain");
                     for (int i = 0; i < 7; i++) {
                         days.get(i).setTempDay((temperature_2m.getDouble(8 + (24 * i)) + temperature_2m.getDouble(10 + (i * 24)) + temperature_2m.getDouble(12 + (24 * i)) + temperature_2m.getDouble(14 + (24 * i)) + temperature_2m.getDouble(16 + (24 * i))) / 5);
                         days.get(i).setTempNight((temperature_2m.getDouble(20 + (24 * i)) + temperature_2m.getDouble(21 + (i * 24)) + temperature_2m.getDouble(23 + (24 * i)) + temperature_2m.getDouble(2 + (24 * i)) + temperature_2m.getDouble(3 + (24 * i)) ) / 5);
+
+                        switch ((Integer) weather_code.get(12 + (24 * i))) {
+                            case 0:
+                            case 1:
+                            case 2: days.get(i).setImageDay(R.drawable.icons8sun100); break;
+                            case 3: days.get(i).setImageDay(R.drawable.icons8cloud100); break;
+                            case 45:
+                            case 48: days.get(i).setImageDay(R.drawable.icons8fog100); break;
+                            case 51:
+                            case 53:
+                            case 55:
+                            case 61:
+                            case 63:
+                            case 65:
+                                days.get(i).setImageDay(R.drawable.icons8rain100); break;
+                            case 56:
+                            case 57:
+                            case 66:
+                            case 67:
+                                days.get(i).setImageDay(R.drawable.icons8sleet100); break;
+                            case 71:
+                            case 73:
+                            case 75:
+                            case 77: days.get(i).setImageDay(R.drawable.icons8snow100); break;
+                            case 85:
+                            case 86: days.get(i).setImageDay(R.drawable.icons8snowstorm100); break;
+                            case 80:
+                            case 81:
+                            case 82: days.get(i).setImageDay(R.drawable.icons8raincloud100); break;
+                            case 95:
+                            case 96:
+                            case 99: days.get(i).setImageDay(R.drawable.icons8cloudlightning100); break;
+                            default: break;
+                        }
 //                        Log.d("test123", "godzina 20: " + temperature_2m.getDouble(20 + (24 * i)) + "\ngodzina 21: " + temperature_2m.getDouble(21 + (24 * i)) + "\ngodzina 23: " + temperature_2m.getDouble(23 + (24 * i)) + "\ngodzina 2: " + temperature_2m.getDouble(2 + (24 * i)) + "\ngodzina 3: " + temperature_2m.getDouble(3 + (24 * i)));
                     }
 
@@ -116,11 +154,20 @@ public class GminaActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(View view, int position) {
                             Intent intent = new Intent(GminaActivity.this,DayActivity.class);
+                            intent.putExtra("position", position);
+                            intent.putExtra("temperature", temperature_2m.toString());
+                            intent.putExtra("rain", rain.toString());
+                            intent.putExtra("wind_speed_10m", wind_speed_10m.toString());
+                            intent.putExtra("weather_code", weather_code.toString());
                             startActivity(intent);
                         }
                         @Override
                         public void onLongItemClick(View view, int position) {
                             Intent intent = new Intent(GminaActivity.this,DayActivity.class);
+                            intent.putExtra("temperature", temperature_2m.toString());
+                            intent.putExtra("rain", rain.toString());
+                            intent.putExtra("wind_speed_10m", wind_speed_10m.toString());
+                            intent.putExtra("weather_code", weather_code.toString());
                             startActivity(intent);
                         }
                     }));
