@@ -9,11 +9,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         ibTemperature.setOnClickListener(this);
         ibWind.setOnClickListener(this);
         ibHumidity.setOnClickListener(this);
+        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m&timezone=auto&forecast_days=7";
     }
     private List<Entry> getDataSetTemperute() {
         List<Entry> lineEntries = new ArrayList<>();
