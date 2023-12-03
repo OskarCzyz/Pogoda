@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -46,9 +47,12 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         Day day = mDays.get(position);
         TextView temperatureDay = holder.temperatureDay;
-        temperatureDay.setText((float)Math.round(day.getTempDay() * 10) / 10 + "°C");
+        String unit;
+        if (Objects.equals(MainActivity.currentUnit, "farenheit")) unit = "°F";
+        else unit = "°C";
+        temperatureDay.setText((float)Math.round(day.getTempDay() * 10) / 10 + unit);
         TextView temperatureNight = holder.temperatureNight;
-        temperatureNight.setText((float)Math.round(day.getTempNight() * 10) / 10 + "°C");
+        temperatureNight.setText((float)Math.round(day.getTempNight() * 10) / 10 + unit);
         ImageView humidityDay = holder.humidityDay;
         humidityDay.setImageResource(day.getImageDay());
         ImageView humidityNight = holder.humidityNight;

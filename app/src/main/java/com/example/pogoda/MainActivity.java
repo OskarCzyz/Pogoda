@@ -1,10 +1,15 @@
 package com.example.pogoda;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,21 +17,13 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static String currentUnit = "celcius";
     private TextView tvBrenna, tvCieszyn, tvZebrzydowice, tvStrumien, tvChybie, tvHazlach, tvDebowiec, tvSkoczow,tvGoleszow,tvUstron,tvWisla,tvIstebna;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        View decorView = getWindow().getDecorView();
-// Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-// Remember that you should never show the action bar if the
-// status bar is hidden, so hide that too if necessary.
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         tvBrenna = findViewById(R.id.tvBrenna);
@@ -105,6 +102,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra("Name", name);
         intent.putExtra("Latitude", latitude);
         intent.putExtra("Longitude", longitude);
+        intent.putExtra("Unit", currentUnit);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection.
+        switch (item.getItemId()) {
+            case R.id.menu_item_farenheit:
+                currentUnit = "fahrenheit";
+                return true;
+            case R.id.menu_item_celcius:
+                currentUnit = "celcius";
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

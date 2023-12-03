@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GminaActivity extends AppCompatActivity {
 
@@ -56,6 +57,7 @@ public class GminaActivity extends AppCompatActivity {
 
 
         String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m,rain,weather_code,wind_speed_10m&timezone=auto&forecast_days=7";
+        if (Objects.equals(getIntent().getStringExtra("Unit"), "fahrenheit")) url += "&temperature_unit=fahrenheit";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
             @Override
