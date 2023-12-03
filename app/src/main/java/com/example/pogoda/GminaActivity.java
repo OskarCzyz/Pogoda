@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -56,15 +57,32 @@ public class GminaActivity extends AppCompatActivity {
         JSONObject hourly;
 
 
-        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m,rain,weather_code,wind_speed_10m&timezone=auto&forecast_days=7";
+        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m,rain,weather_code,wind_speed_10m&daily=weather_code&timezone=auto&forecast_days=7";
         if (Objects.equals(getIntent().getStringExtra("Unit"), "fahrenheit")) url += "&temperature_unit=fahrenheit";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    // Wybor obrazka z tylu
+                    // ustawienie nazwy gminy
+                    tvTitle.setText(getIntent().getStringExtra("Name"));
+
+                    // dane obecne
                     JSONObject current = response.getJSONObject("current");
+
+                    // dane godzinowe
+                    JSONObject hourly = response.getJSONObject("hourly");
+                    JSONArray temperature_2m = hourly.getJSONArray("temperature_2m");
+                    JSONArray weather_code = hourly.getJSONArray("weather_code");
+                    JSONArray wind_speed_10m = hourly.getJSONArray("wind_speed_10m");
+                    JSONArray rain = hourly.getJSONArray("rain");
+
+                    // dane dzienne
+                    JSONObject daily = response.getJSONObject("daily");
+                    JSONArray time = daily.getJSONArray("time");
+                    JSONArray daily_code = daily.getJSONArray("weather_code");
+
+                    // Wybor obrazka z tylu
                     switch (current.getInt("weather_code")) {
                         case 0: ivStatus.setImageResource(R.drawable.status_fullclear); break;
                         case 1: ivStatus.setImageResource(R.drawable.status_clear); break;
@@ -97,21 +115,15 @@ public class GminaActivity extends AppCompatActivity {
                         default: break;
                     }
 
-                    // ustawienie nazwy gminy
-                    tvTitle.setText(getIntent().getStringExtra("Name"));
 
-                    JSONObject hourly = response.getJSONObject("hourly");
-                    JSONArray time = hourly.getJSONArray("time");
-                    JSONArray temperature_2m = hourly.getJSONArray("temperature_2m");
-                    JSONArray weather_code = hourly.getJSONArray("weather_code");
-                    JSONArray wind_speed_10m = hourly.getJSONArray("wind_speed_10m");
-                    JSONArray rain = hourly.getJSONArray("rain");
+
+                    // ustawianie danych dla następnych 7 dni
                     for (int i = 0; i < 7; i++) {
-                        days.get(i).setDay(time.getString(24 * i).substring(0,10));
+                        Log.d("test123", "onResponse: " + time + "\n" + daily_code);
+                        days.get(i).setDay(time.getString(i));
                         days.get(i).setTempDay((temperature_2m.getDouble(8 + (24 * i)) + temperature_2m.getDouble(10 + (i * 24)) + temperature_2m.getDouble(12 + (24 * i)) + temperature_2m.getDouble(14 + (24 * i)) + temperature_2m.getDouble(16 + (24 * i))) / 5);
                         days.get(i).setTempNight((temperature_2m.getDouble(20 + (24 * i)) + temperature_2m.getDouble(21 + (i * 24)) + temperature_2m.getDouble(23 + (24 * i)) + temperature_2m.getDouble(2 + (24 * i)) + temperature_2m.getDouble(3 + (24 * i)) ) / 5);
-
-                        switch ((Integer) weather_code.get(12 + (24 * i))) {
+                        switch ((Integer) daily_code.get(i)) {
                             case 0:
                             case 1:
                             case 2: days.get(i).setImageDay(R.drawable.icons8sun100); break;
