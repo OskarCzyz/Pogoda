@@ -97,7 +97,7 @@ public class GminaActivity extends AppCompatActivity {
                         default: break;
                     }
 
-                    // ustawienie nazwy gminy
+                    // settting name of gmina
                     tvTitle.setText(getIntent().getStringExtra("Name"));
 
                     JSONObject hourly = response.getJSONObject("hourly");
