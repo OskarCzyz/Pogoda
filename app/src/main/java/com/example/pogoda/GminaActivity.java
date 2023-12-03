@@ -119,10 +119,13 @@ public class GminaActivity extends AppCompatActivity {
 
                     // ustawianie danych dla następnych 7 dni
                     for (int i = 0; i < 7; i++) {
-                        Log.d("test123", "onResponse: " + time + "\n" + daily_code);
+                        // dzien
                         days.get(i).setDay(time.getString(i));
+                        // srednia temperatura w dzien
                         days.get(i).setTempDay((temperature_2m.getDouble(8 + (24 * i)) + temperature_2m.getDouble(10 + (i * 24)) + temperature_2m.getDouble(12 + (24 * i)) + temperature_2m.getDouble(14 + (24 * i)) + temperature_2m.getDouble(16 + (24 * i))) / 5);
+                        // srednia temperatura w noc
                         days.get(i).setTempNight((temperature_2m.getDouble(20 + (24 * i)) + temperature_2m.getDouble(21 + (i * 24)) + temperature_2m.getDouble(23 + (24 * i)) + temperature_2m.getDouble(2 + (24 * i)) + temperature_2m.getDouble(3 + (24 * i)) ) / 5);
+                        // obrazek dzien
                         switch ((Integer) daily_code.get(i)) {
                             case 0:
                             case 1:
@@ -156,7 +159,6 @@ public class GminaActivity extends AppCompatActivity {
                             case 99: days.get(i).setImageDay(R.drawable.icons8cloudlightning100); break;
                             default: break;
                         }
-//                        Log.d("test123", "godzina 20: " + temperature_2m.getDouble(20 + (24 * i)) + "\ngodzina 21: " + temperature_2m.getDouble(21 + (24 * i)) + "\ngodzina 23: " + temperature_2m.getDouble(23 + (24 * i)) + "\ngodzina 2: " + temperature_2m.getDouble(2 + (24 * i)) + "\ngodzina 3: " + temperature_2m.getDouble(3 + (24 * i)));
                     }
 
 
@@ -181,10 +183,12 @@ public class GminaActivity extends AppCompatActivity {
                         @Override
                         public void onLongItemClick(View view, int position) {
                             Intent intent = new Intent(GminaActivity.this,DayActivity.class);
+                            intent.putExtra("position", position);
                             intent.putExtra("temperature", temperature_2m.toString());
                             intent.putExtra("rain", rain.toString());
                             intent.putExtra("wind_speed_10m", wind_speed_10m.toString());
                             intent.putExtra("weather_code", weather_code.toString());
+                            intent.putExtra("time", time.toString());
                             startActivity(intent);
                         }
                     }));
