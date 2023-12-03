@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,6 +43,7 @@ public class GminaActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
 // Hide the action bar
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.hide();
 
         super.onCreate(savedInstanceState);
@@ -101,11 +101,13 @@ public class GminaActivity extends AppCompatActivity {
                     tvTitle.setText(getIntent().getStringExtra("Name"));
 
                     JSONObject hourly = response.getJSONObject("hourly");
+                    JSONArray time = hourly.getJSONArray("time");
                     JSONArray temperature_2m = hourly.getJSONArray("temperature_2m");
                     JSONArray weather_code = hourly.getJSONArray("weather_code");
                     JSONArray wind_speed_10m = hourly.getJSONArray("wind_speed_10m");
                     JSONArray rain = hourly.getJSONArray("rain");
                     for (int i = 0; i < 7; i++) {
+                        days.get(i).setDay(time.getString(24 * i).substring(0,10));
                         days.get(i).setTempDay((temperature_2m.getDouble(8 + (24 * i)) + temperature_2m.getDouble(10 + (i * 24)) + temperature_2m.getDouble(12 + (24 * i)) + temperature_2m.getDouble(14 + (24 * i)) + temperature_2m.getDouble(16 + (24 * i))) / 5);
                         days.get(i).setTempNight((temperature_2m.getDouble(20 + (24 * i)) + temperature_2m.getDouble(21 + (i * 24)) + temperature_2m.getDouble(23 + (24 * i)) + temperature_2m.getDouble(2 + (24 * i)) + temperature_2m.getDouble(3 + (24 * i)) ) / 5);
 
@@ -178,9 +180,10 @@ public class GminaActivity extends AppCompatActivity {
                 }
             }
         }, new Response.ErrorListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onErrorResponse(VolleyError error) {
-                tvTitle.setText("error ");
+                tvTitle.setText("nie udało się połączyć się z siecią");
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(this);

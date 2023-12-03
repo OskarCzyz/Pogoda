@@ -2,6 +2,7 @@ package com.example.pogoda;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,15 +49,21 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
         Day day = mDays.get(position);
         TextView temperatureDay = holder.temperatureDay;
         String unit;
-        if (Objects.equals(MainActivity.currentUnit, "farenheit")) unit = "°F";
+        Log.d("test123", "onBindViewHolder: " + MainActivity.currentUnit);
+        if (Objects.equals(MainActivity.currentUnit, "fahrenheit")) unit = "°F";
         else unit = "°C";
+        // temperatura dzien
         temperatureDay.setText((float)Math.round(day.getTempDay() * 10) / 10 + unit);
         TextView temperatureNight = holder.temperatureNight;
+        // temperatura noc
         temperatureNight.setText((float)Math.round(day.getTempNight() * 10) / 10 + unit);
+        // obrazek dzien
         ImageView humidityDay = holder.humidityDay;
         humidityDay.setImageResource(day.getImageDay());
+        // obrazek noc
         ImageView humidityNight = holder.humidityNight;
         humidityNight.setImageResource(day.getImageNight());
+        // dzien
         TextView tvDay = holder.tvDay;
         tvDay.setText(day.getDay());
     }
