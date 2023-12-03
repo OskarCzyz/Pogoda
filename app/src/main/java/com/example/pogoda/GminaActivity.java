@@ -175,6 +175,7 @@ public class GminaActivity extends AppCompatActivity {
                             intent.putExtra("rain", rain.toString());
                             intent.putExtra("wind_speed_10m", wind_speed_10m.toString());
                             intent.putExtra("weather_code", weather_code.toString());
+                            intent.putExtra("time", time.toString());
                             startActivity(intent);
                         }
                         @Override

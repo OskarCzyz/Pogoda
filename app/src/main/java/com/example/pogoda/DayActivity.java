@@ -8,6 +8,7 @@ import android.service.autofill.OnClickAction;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -25,6 +26,8 @@ import java.util.List;
 public class DayActivity extends AppCompatActivity implements View.OnClickListener {
     LineChart lineChart;
     ImageButton ibTemperature,ibWind,ibHumidity;
+
+    private TextView tvDate;
     LineDataSet lineDataSet;
     List<Entry> lineEntries;
     LineData data;
@@ -36,6 +39,14 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         ibWind = findViewById(R.id.ibWind);
         ibHumidity = findViewById(R.id.ibHumidity);
         lineChart = findViewById(R.id.chart);
+        tvDate = findViewById(R.id.tvDate);
+
+        String time = "";
+        if (getIntent().hasExtra("time")) time = getIntent().getStringExtra("time");
+        int position = getIntent().getIntExtra("position", 0);
+        String[] time_array = time.substring(1, time.length() - 1).split(",");
+        tvDate.setText(time_array[position].substring(1,time_array[position].length()-1));
+
 
         lineEntries = getDataSetTemperute();
         lineDataSet = new LineDataSet(lineEntries,"Temperatura");
