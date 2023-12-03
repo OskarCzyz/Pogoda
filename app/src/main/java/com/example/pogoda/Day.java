@@ -5,6 +5,11 @@ import java.util.ArrayList;
 public class Day {
     private double tempDay,tempNight;
     private int imageDay,imageNight;
+    private String day;
+
+    public void setDay(String day) {
+        this.day = day;
+    }
 
     public void setTempDay(double tempDay) {
         this.tempDay = tempDay;
@@ -22,11 +27,16 @@ public class Day {
         this.imageNight = imageNight;
     }
 
-    public Day(int tDay, int tnight, int iDay, int iNight){
+    public Day(int tDay, int tnight, int iDay, int iNight,String date){
         tempDay = tDay;
         tempNight = tnight;
         imageDay = iDay;
         imageNight = iNight;
+        day = date;
+    }
+
+    public String getDay() {
+        return day;
     }
 
     public double getTempDay() {
@@ -49,7 +59,7 @@ public class Day {
         ArrayList<Day> days = new ArrayList<Day>();
 
         for (int i = 1; i <= numDays; i++){
-            days.add(new Day(10,0,R.drawable.icons8cloud100,R.drawable.icons8cloud100));
+            days.add(new Day(10,0,R.drawable.icons8cloud100,R.drawable.icons8cloud100,"Dziś"));
         }
         return days;
     }

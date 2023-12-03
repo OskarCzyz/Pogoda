@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView temperatureDay,temperatureNight;
+        public TextView temperatureDay,temperatureNight,tvDay;
         public ImageView humidityDay,humidityNight;
 
         public ViewHolder(View itemView){
@@ -24,6 +24,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
             temperatureNight = itemView.findViewById(R.id.temperatureNight);
             humidityDay = itemView.findViewById(R.id.humidityDay);
             humidityNight = itemView.findViewById(R.id.humidityNight);
+            tvDay = itemView.findViewById(R.id.tvDay);
         }
 
     }
@@ -52,7 +53,8 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
         humidityDay.setImageResource(day.getImageDay());
         ImageView humidityNight = holder.humidityNight;
         humidityNight.setImageResource(day.getImageNight());
-
+        TextView tvDay = holder.tvDay;
+        tvDay.setText(day.getDay());
     }
 
     @Override
