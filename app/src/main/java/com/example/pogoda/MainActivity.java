@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         TextView text = (TextView) v;
         String name = (String) text.getText();
-
+        //setting buttons
         double latitude = 0, longitude =0;
         if (name.equals("Brenna")) {
             latitude = 49.7258;
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             latitude = 49.8141;
             longitude = 18.7206;
         }
-
+        //Creating new intent with data to GminaActivity
         Intent intent = new Intent(MainActivity.this, GminaActivity.class);
         intent.putExtra("Name", name);
         intent.putExtra("Latitude", latitude);
