@@ -9,9 +9,8 @@ Aplikacja składa się ze strony głównej posiadają mapę powiatu, po kliknię
 # Lista funkcji:
 - sprawdzanie pogody dla każdej gminy
 - prognoza godzinowa
-- prognoza do 3 dni
-- wykaz temperatury, wilgotości, zachmurzenie, wiatr
-- godziny wschodu i zachodu słońca
+- prognoza do 7 dni
+- wykaz temperatury, wilgotości, wiatr
 
 Weather forecast API:
 https://open-meteo.com/
