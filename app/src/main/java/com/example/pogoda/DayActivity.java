@@ -100,15 +100,19 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         if (view.getId() == R.id.ibTemperature){
             lineEntries = getDataSetTemperute();
             lineDataSet = new LineDataSet(lineEntries,"Temperatura");
+            lineDataSet.setColors(Color.RED);
         }else if(view.getId() == R.id.ibWind){
             lineEntries = getDataSetWind();
             lineDataSet = new LineDataSet(lineEntries,"Wiatr");
+            lineDataSet.setColors(Color.YELLOW);
         }else if(view.getId() == R.id.ibHumidity){
             lineEntries = getDataSetHumidity();
             lineDataSet = new LineDataSet(lineEntries,"Wilgotność");
+            lineDataSet.setColors(Color.BLUE);
         }
         data = new LineData(lineDataSet);
         lineChart.setData(data);
+        lineDataSet.setCircleColors(Color.GREEN);
         lineChart.invalidate();
     }
 }
