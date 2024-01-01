@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
-        }, 1000); // Delay of 500 milliseconds
+        }, 1000); // Delay of 1000 milliseconds
 
     }
 
