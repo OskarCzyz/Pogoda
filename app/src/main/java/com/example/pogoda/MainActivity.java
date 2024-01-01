@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         tvBrenna = findViewById(R.id.tvBrenna);
         tvCieszyn = findViewById(R.id.tvCieszyn);
         tvZebrzydowice = findViewById(R.id.tvZebrzydowice);

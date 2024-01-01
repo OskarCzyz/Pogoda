@@ -25,7 +25,6 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
             temperatureDay = itemView.findViewById(R.id.temperatureDay);
             temperatureNight = itemView.findViewById(R.id.temperatureNight);
             humidityDay = itemView.findViewById(R.id.humidityDay);
-            humidityNight = itemView.findViewById(R.id.humidityNight);
             tvDay = itemView.findViewById(R.id.tvDay);
         }
 
@@ -60,9 +59,6 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
         // obrazek dzien
         ImageView humidityDay = holder.humidityDay;
         humidityDay.setImageResource(day.getImageDay());
-        // obrazek noc
-        ImageView humidityNight = holder.humidityNight;
-        humidityNight.setImageResource(day.getImageNight());
         // dzien
         TextView tvDay = holder.tvDay;
         tvDay.setText(day.getDay());
