@@ -1,33 +1,33 @@
 package com.example.pogoda;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static String currentUnit = "celcius";
     private TextView tvBrenna, tvCieszyn, tvZebrzydowice, tvStrumien, tvChybie, tvHazlach, tvDebowiec, tvSkoczow,tvGoleszow,tvUstron,tvWisla,tvIstebna;
     private ImageView imageViewTransition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        );
 
 
         imageViewTransition = findViewById(R.id.imageViewTransition);
@@ -136,26 +136,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection.
-        switch (item.getItemId()) {
-            case R.id.menu_item_farenheit:
-                currentUnit = "fahrenheit";
-                return true;
-            case R.id.menu_item_celcius:
-                currentUnit = "celcius";
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @SuppressLint("NonConstantResourceId")
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle item selection.
+//        switch (item.getItemId()) {
+//            case R.id.menu_item_farenheit:
+//                currentUnit = "fahrenheit";
+//                return true;
+//            case R.id.menu_item_celcius:
+//                currentUnit = "celcius";
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 }
