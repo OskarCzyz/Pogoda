@@ -14,12 +14,27 @@
             android:layout_height="wrap_content"
 
             android:translationZ="2dp"
-            android:textSize="36sp"
+            android:textSize="40sp"
             android:layout_marginTop="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Proszę Czekać" />
+
+        <TextView
+            android:id="@+id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="96dp"
+            android:textSize="30sp"
+            android:translationZ="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Obecna temperatura: 0.0C" />
+
         <pl.droidsonroids.gif.GifImageView
             android:scaleType="centerCrop"
             android:id="@+id/ivStatus"

@@ -31,7 +31,7 @@ public class GminaActivity extends AppCompatActivity {
 
     public static final String KEY_DAY = "data";
 
-    private TextView tvTitle;
+    private TextView tvTitle, tvDesc;
 
     private ImageView ivStatus;
 
@@ -47,13 +47,14 @@ public class GminaActivity extends AppCompatActivity {
         );
 
         tvTitle = findViewById(R.id.tvTitle);
+        tvDesc = findViewById(R.id.tvDesc);
         ivStatus = findViewById(R.id.ivStatus);
         recyclerView = findViewById(R.id.recyclerView);
         ArrayList<Day> days = Day.createDayList(7);
         JSONObject hourly;
 
 
-        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m,rain,weather_code,wind_speed_10m&daily=weather_code&timezone=auto&forecast_days=7";
+        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code,temperature_2m&hourly=temperature_2m,rain,weather_code,wind_speed_10m&daily=weather_code&timezone=auto&forecast_days=7";
         if (Objects.equals(getIntent().getStringExtra("Unit"), "fahrenheit")) url += "&temperature_unit=fahrenheit";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
@@ -77,6 +78,9 @@ public class GminaActivity extends AppCompatActivity {
                     JSONObject daily = response.getJSONObject("daily");
                     JSONArray time = daily.getJSONArray("time");
                     JSONArray daily_code = daily.getJSONArray("weather_code");
+
+                    // obecna temperatura
+                    tvDesc.setText("Obecna temperatura: " + current.getString("temperature_2m") + "°C");
 
                     // Wybor obrazka z tylu
                     switch (current.getInt("weather_code")) {
