@@ -31,7 +31,7 @@ public class GminaActivity extends AppCompatActivity {
 
     public static final String KEY_DAY = "data";
 
-    private TextView tvTitle;
+    private TextView tvTitle, tvDesc;
 
     private ImageView ivStatus;
 
@@ -47,13 +47,14 @@ public class GminaActivity extends AppCompatActivity {
         );
 
         tvTitle = findViewById(R.id.tvTitle);
+        tvDesc = findViewById(R.id.tvDesc);
         ivStatus = findViewById(R.id.ivStatus);
         recyclerView = findViewById(R.id.recyclerView);
         ArrayList<Day> days = Day.createDayList(7);
         JSONObject hourly;
 
 
-        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code&hourly=temperature_2m,rain,weather_code,wind_speed_10m&daily=weather_code&timezone=auto&forecast_days=7";
+        String url = "https://api.open-meteo.com/v1/forecast?latitude=" + getIntent().getDoubleExtra("Latitude", 0) + "&longitude="+ getIntent().getDoubleExtra("Longitude", 0)+"&current=is_day,rain,showers,weather_code,temperature_2m&hourly=temperature_2m,rain,weather_code,wind_speed_10m,&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=7";
         if (Objects.equals(getIntent().getStringExtra("Unit"), "fahrenheit")) url += "&temperature_unit=fahrenheit";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
@@ -77,6 +78,11 @@ public class GminaActivity extends AppCompatActivity {
                     JSONObject daily = response.getJSONObject("daily");
                     JSONArray time = daily.getJSONArray("time");
                     JSONArray daily_code = daily.getJSONArray("weather_code");
+                    JSONArray temperature_2m_max = daily.getJSONArray("temperature_2m_max");
+                    JSONArray temperature_2m_min = daily.getJSONArray("temperature_2m_min");
+
+                    // obecna temperatura
+                    tvDesc.setText("Obecna temperatura: " + current.getString("temperature_2m") + "°C");
 
                     // Wybor obrazka z tylu
                     switch (current.getInt("weather_code")) {
@@ -115,10 +121,15 @@ public class GminaActivity extends AppCompatActivity {
 
                     // ustawianie danych dla następnych 7 dni
                     for (int i = 0; i < 7; i++) {
-                        Log.d("test123", "onResponse: " + time + "\n" + daily_code);
+                        // dzien
                         days.get(i).setDay(time.getString(i));
-                        days.get(i).setTempDay((temperature_2m.getDouble(8 + (24 * i)) + temperature_2m.getDouble(10 + (i * 24)) + temperature_2m.getDouble(12 + (24 * i)) + temperature_2m.getDouble(14 + (24 * i)) + temperature_2m.getDouble(16 + (24 * i))) / 5);
-                        days.get(i).setTempNight((temperature_2m.getDouble(20 + (24 * i)) + temperature_2m.getDouble(21 + (i * 24)) + temperature_2m.getDouble(23 + (24 * i)) + temperature_2m.getDouble(2 + (24 * i)) + temperature_2m.getDouble(3 + (24 * i)) ) / 5);
+                        // srednia temperatura w dzien
+//                        days.get(i).setTempDay((temperature_2m.getDouble(8 + (24 * i)) + temperature_2m.getDouble(10 + (i * 24)) + temperature_2m.getDouble(12 + (24 * i)) + temperature_2m.getDouble(14 + (24 * i)) + temperature_2m.getDouble(16 + (24 * i))) / 5);
+                        days.get(i).setTempDay(temperature_2m_max.getDouble(i));
+                        // srednia temperatura w noc
+//                        days.get(i).setTempNight((temperature_2m.getDouble(20 + (24 * i)) + temperature_2m.getDouble(21 + (i * 24)) + temperature_2m.getDouble(23 + (24 * i)) + temperature_2m.getDouble(2 + (24 * i)) + temperature_2m.getDouble(3 + (24 * i)) ) / 5);
+                        days.get(i).setTempNight(temperature_2m_min.getDouble(i));
+                        // obrazek dzien
                         switch ((Integer) daily_code.get(i)) {
                             case 0:
                             case 1:
@@ -152,7 +163,6 @@ public class GminaActivity extends AppCompatActivity {
                             case 99: days.get(i).setImageDay(R.drawable.icons8cloudlightning100); break;
                             default: break;
                         }
-//                        Log.d("test123", "godzina 20: " + temperature_2m.getDouble(20 + (24 * i)) + "\ngodzina 21: " + temperature_2m.getDouble(21 + (24 * i)) + "\ngodzina 23: " + temperature_2m.getDouble(23 + (24 * i)) + "\ngodzina 2: " + temperature_2m.getDouble(2 + (24 * i)) + "\ngodzina 3: " + temperature_2m.getDouble(3 + (24 * i)));
                     }
 
 
@@ -177,6 +187,7 @@ public class GminaActivity extends AppCompatActivity {
                         @Override
                         public void onLongItemClick(View view, int position) {
                             Intent intent = new Intent(GminaActivity.this,DayActivity.class);
+                            intent.putExtra("position", position);
                             intent.putExtra("temperature", temperature_2m.toString());
                             intent.putExtra("rain", rain.toString());
                             intent.putExtra("wind_speed_10m", wind_speed_10m.toString());
