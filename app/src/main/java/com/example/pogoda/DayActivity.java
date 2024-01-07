@@ -62,7 +62,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
             lineChart.setData(data);
             lineChart.animateXY(200,200);
             lineChart.invalidate();
-            lineDataSet.setValueTextSize(2);
+            lineDataSet.setValueTextSize(10);
             lineChart.setDescription(null);
 
 
@@ -123,6 +123,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         data = new LineData(lineDataSet);
         lineChart.setData(data);
         lineDataSet.setCircleColors(Color.GREEN);
+        lineDataSet.setValueTextSize(10);
         lineChart.invalidate();
     }
 }
