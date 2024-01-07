@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 longitude = 18.7368;
                 break;
             case "Hażlach":
-                move = R.anim.move_hazlach;
                 imageViewTransition.setBackgroundResource(R.drawable.powiat_hazlach);
                 latitude = 49.8071;
                 longitude = 18.6518;
@@ -171,13 +170,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imageViewTransition.startAnimation(animationSet);
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                imageViewTransition.setVisibility(View.GONE);
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
+        new Handler().postDelayed(() -> {
+            imageViewTransition.setVisibility(View.GONE);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }, 2000); // Delay of 2000 milliseconds
 
     }

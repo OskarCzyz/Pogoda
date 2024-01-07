@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Day {
     private double tempDay,tempNight;
-    private int imageDay,imageNight;
+    private int imageDay;
     private String day;
 
     public void setDay(String day) {
@@ -23,15 +23,10 @@ public class Day {
         this.imageDay = imageDay;
     }
 
-    public void setImageNight(int imageNight) {
-        this.imageNight = imageNight;
-    }
-
-    public Day(int tDay, int tnight, int iDay, int iNight,String date){
+    public Day(int tDay, int tnight, int iDay,String date){
         tempDay = tDay;
         tempNight = tnight;
         imageDay = iDay;
-        imageNight = iNight;
         day = date;
     }
 
@@ -51,15 +46,11 @@ public class Day {
         return imageDay;
     }
 
-    public int getImageNight() {
-        return imageNight;
-    }
-
     public static ArrayList<Day> createDayList(int numDays){
-        ArrayList<Day> days = new ArrayList<Day>();
+        ArrayList<Day> days = new ArrayList<>();
 
         for (int i = 1; i <= numDays; i++){
-            days.add(new Day(10,0,R.drawable.icons8cloud100,R.drawable.icons8cloud100,"Dziś"));
+            days.add(new Day(10,0,R.drawable.icons8cloud100,"Dziś"));
         }
         return days;
     }

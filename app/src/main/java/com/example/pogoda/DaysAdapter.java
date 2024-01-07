@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView temperatureDay,temperatureNight,tvDay;
-        public ImageView humidityDay,humidityNight;
+        public ImageView humidityDay;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -29,7 +29,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
         }
 
     }
-    private List<Day> mDays;
+    private final List<Day> mDays;
     public DaysAdapter(List<Day> days){
         mDays = days;
     }
