@@ -9,6 +9,17 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/tvText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#3c3c3c"
+        android:textSize="32sp"
+        android:text="Wybierz powiat:"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:contentDescription="@string/map_description"
@@ -56,8 +67,8 @@
 
     <TextView
         android:id="@+id/tvZebrzydowice"
-        android:layout_width="78dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:padding="5sp"
         android:text="Zebrzydowice"
         android:textColor="@color/black"
@@ -65,11 +76,11 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
 
-        app:layout_constraintHorizontal_bias="0.171"
+        app:layout_constraintHorizontal_bias="0.13"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.178"
+        app:layout_constraintVertical_bias="0.175"
         tools:ignore="SmallSp" />
 
     <TextView
@@ -198,7 +209,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="Haźlach"
+        android:text="Hażlach"
         android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -208,10 +219,11 @@
         app:layout_constraintVertical_bias="0.329" />
 
     <ImageView
+        android:contentDescription="Animation"
         android:visibility="gone"
         android:id="@+id/imageViewTransition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="520dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

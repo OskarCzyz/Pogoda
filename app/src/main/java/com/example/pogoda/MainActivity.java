@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +18,6 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static String currentUnit = "celcius";
-    private TextView tvBrenna, tvCieszyn, tvZebrzydowice, tvStrumien, tvChybie, tvHazlach, tvDebowiec, tvSkoczow,tvGoleszow,tvUstron,tvWisla,tvIstebna;
     private ImageView imageViewTransition;
 
     @Override
@@ -31,18 +31,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         imageViewTransition = findViewById(R.id.imageViewTransition);
-        tvBrenna = findViewById(R.id.tvBrenna);
-        tvCieszyn = findViewById(R.id.tvCieszyn);
-        tvZebrzydowice = findViewById(R.id.tvZebrzydowice);
-        tvStrumien = findViewById(R.id.tvStrumien);
-        tvChybie = findViewById(R.id.tvChybie);
-        tvHazlach = findViewById(R.id.tvHazlach);
-        tvDebowiec = findViewById(R.id.tvDebowiec);
-        tvSkoczow = findViewById(R.id.tvSkoczow);
-        tvGoleszow = findViewById(R.id.tvGoleszow);
-        tvUstron = findViewById(R.id.tvUstron);
-        tvWisla = findViewById(R.id.tvWisla);
-        tvIstebna = findViewById(R.id.tvIstebna);
+        TextView tvBrenna = findViewById(R.id.tvBrenna);
+        TextView tvCieszyn = findViewById(R.id.tvCieszyn);
+        TextView tvZebrzydowice = findViewById(R.id.tvZebrzydowice);
+        TextView tvStrumien = findViewById(R.id.tvStrumien);
+        TextView tvChybie = findViewById(R.id.tvChybie);
+        TextView tvHazlach = findViewById(R.id.tvHazlach);
+        TextView tvDebowiec = findViewById(R.id.tvDebowiec);
+        TextView tvSkoczow = findViewById(R.id.tvSkoczow);
+        TextView tvGoleszow = findViewById(R.id.tvGoleszow);
+        TextView tvUstron = findViewById(R.id.tvUstron);
+        TextView tvWisla = findViewById(R.id.tvWisla);
+        TextView tvIstebna = findViewById(R.id.tvIstebna);
 
         tvBrenna.setOnClickListener(MainActivity.this);
         tvCieszyn.setOnClickListener(MainActivity.this);
@@ -63,56 +63,94 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         TextView text = (TextView) v;
         String name = (String) text.getText();
-        //setting buttons
+        int move = R.anim.move_hazlach;
+        int scale = R.anim.scaleanimation;
         double latitude = 0, longitude =0;
-        if (name.equals("Brenna")) {
-            imageViewTransition.setBackgroundResource(R.drawable.powiat_brenna);
-            latitude = 49.7258;
-            longitude = 18.9025;
-        } else if (name.equals("Chybie")) {
-            imageViewTransition.setBackgroundResource(R.drawable.powiat_chybie);
-            latitude = 49.9025;
-            longitude = 18.8276;
-        } else if (name.equals("Cieszyn")) {
-            imageViewTransition.setBackgroundResource(R.drawable.powiat_cieszyn);
-            latitude = 49.7513;
-            longitude = 18.6321;
-        } else if (name.equals("Goleszów")) {
-            imageViewTransition.setBackgroundResource(R.drawable.powiat_goleszow);
-            latitude = 49.7358;
-            longitude = 18.7368;
-        } else if (name.equals("Haźlach")) {
-            imageViewTransition.setBackgroundResource(R.drawable.powiat_hazlach);
-            latitude = 49.8071;
-            longitude = 18.6518;
-        } else if (name.equals("Istebna")) {
-            imageViewTransition.setBackgroundResource(R.drawable.powiat_istebna);
-            latitude = 49.5632;
-            longitude = 18.9057;
-        } else if (name.equals("Skoczów")) {
-            imageViewTransition.setBackgroundResource(R.drawable.powiat_skoczow);
-            latitude = 49.8009;
-            longitude = 18.7877;
-        } else if (name.equals("Strumień")) {
-            imageViewTransition.setBackgroundResource(R.drawable.powiat_strumien);
-            latitude = 49.9210;
-            longitude = 18.7664;
-        } else if (name.equals("Ustroń")) {
-            imageViewTransition.setBackgroundResource(R.drawable.powiat_ustron);
-            latitude = 49.7215;
-            longitude = 18.8020;
-        } else if (name.equals("Wisła")) {
-            imageViewTransition.setBackgroundResource(R.drawable.powiat_wisla);
-            latitude = 49.6563;
-            longitude = 18.8591;
-        } else if (name.equals("Zebrzydowice")) {
-            imageViewTransition.setBackgroundResource(R.drawable.powiat_zebrzydowice);
-            latitude = 49.8779;
-            longitude = 18.6113;
-        } else if (name.equals("Dębowiec")) {
-            imageViewTransition.setBackgroundResource(R.drawable.powiat_debowiec);
-            latitude = 49.8141;
-            longitude = 18.7206;
+        // Określanie który przycisk został wybrany
+        // ustawianie innego rodzaju powiększania przy przejsciu kiedy powiat jest duzy
+        // ustawianie personalizowanego przejscia
+        // tlo przejscia
+        // wysokosc i szerokosc geograficzna powiatu
+        switch (name) {
+            case "Brenna":
+                scale = R.anim.scaleforbiganimation;
+                move = R.anim.move_brenna;
+                imageViewTransition.setBackgroundResource(R.drawable.powiat_brenna);
+                latitude = 49.7258;
+                longitude = 18.9025;
+                break;
+            case "Chybie":
+                move = R.anim.move_chybie;
+                imageViewTransition.setBackgroundResource(R.drawable.powiat_chybie);
+                latitude = 49.9025;
+                longitude = 18.8276;
+                break;
+            case "Cieszyn":
+                move = R.anim.move_cieszyn;
+                imageViewTransition.setBackgroundResource(R.drawable.powiat_cieszyn);
+                latitude = 49.7513;
+                longitude = 18.6321;
+                break;
+            case "Goleszów":
+                move = R.anim.move_goleszow;
+                scale = R.anim.scaleforbiganimation;
+                imageViewTransition.setBackgroundResource(R.drawable.powiat_goleszow);
+                latitude = 49.7358;
+                longitude = 18.7368;
+                break;
+            case "Hażlach":
+                move = R.anim.move_hazlach;
+                imageViewTransition.setBackgroundResource(R.drawable.powiat_hazlach);
+                latitude = 49.8071;
+                longitude = 18.6518;
+                break;
+            case "Istebna":
+                scale = R.anim.scaleforbiganimation;
+                move = R.anim.move_istebna;
+                imageViewTransition.setBackgroundResource(R.drawable.powiat_istebna);
+                latitude = 49.5632;
+                longitude = 18.9057;
+                break;
+            case "Skoczów":
+                scale = R.anim.scaleforbiganimation;
+                move = R.anim.move_skoczow;
+                imageViewTransition.setBackgroundResource(R.drawable.powiat_skoczow);
+                latitude = 49.8009;
+                longitude = 18.7877;
+                break;
+            case "Strumień":
+                scale = R.anim.scaleforbiganimation;
+                move = R.anim.move_strumien;
+                imageViewTransition.setBackgroundResource(R.drawable.powiat_strumien);
+                latitude = 49.9210;
+                longitude = 18.7664;
+                break;
+            case "Ustroń":
+                scale = R.anim.scaleforbiganimation;
+                move = R.anim.move_ustron;
+                imageViewTransition.setBackgroundResource(R.drawable.powiat_ustron);
+                latitude = 49.7215;
+                longitude = 18.8020;
+                break;
+            case "Wisła":
+                scale = R.anim.scaleforbiganimation;
+                move = R.anim.move_wisla;
+                imageViewTransition.setBackgroundResource(R.drawable.powiat_wisla);
+                latitude = 49.6563;
+                longitude = 18.8591;
+                break;
+            case "Zebrzydowice":
+                move = R.anim.move_zebrzydowice;
+                imageViewTransition.setBackgroundResource(R.drawable.powiat_zebrzydowice);
+                latitude = 49.8779;
+                longitude = 18.6113;
+                break;
+            case "Dębowiec":
+                move = R.anim.move_debowiec;
+                imageViewTransition.setBackgroundResource(R.drawable.powiat_debowiec);
+                latitude = 49.8141;
+                longitude = 18.7206;
+                break;
         }
         //Creating new intent with data to GminaActivity
         Intent intent = new Intent(MainActivity.this, GminaActivity.class);
@@ -122,8 +160,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra("Unit", currentUnit);
 
         imageViewTransition.setVisibility(View.VISIBLE);
-        Animation scaleUpanimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.scaleanimation);
-        imageViewTransition.startAnimation(scaleUpanimation);
+        Animation moveAnimation = AnimationUtils.loadAnimation(MainActivity.this, move);
+        Animation scaleUpanimation = AnimationUtils.loadAnimation(MainActivity.this, scale);
+
+        AnimationSet animationSet = new AnimationSet(true);
+
+        animationSet.addAnimation(moveAnimation);
+        animationSet.addAnimation(scaleUpanimation);
+
+        imageViewTransition.startAnimation(animationSet);
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -132,30 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
-        }, 1000); // Delay of 1000 milliseconds
+        }, 2000); // Delay of 2000 milliseconds
 
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @SuppressLint("NonConstantResourceId")
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle item selection.
-//        switch (item.getItemId()) {
-//            case R.id.menu_item_farenheit:
-//                currentUnit = "fahrenheit";
-//                return true;
-//            case R.id.menu_item_celcius:
-//                currentUnit = "celcius";
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 }
