@@ -62,6 +62,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
             lineChart.setData(data);
             lineChart.animateXY(200,200);
             lineChart.invalidate();
+            lineDataSet.setValueTextSize(2);
             lineChart.setDescription(null);
 
 
