@@ -32,9 +32,12 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="temperature" />
 
         <ImageButton
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:id="@+id/ibWind"
             android:layout_width="100dp"
             android:layout_height="match_parent"
@@ -43,7 +46,8 @@
             app:layout_constraintEnd_toStartOf="@+id/ibHumidity"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/ibTemperature"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="wind" />
 
         <ImageButton
             android:id="@+id/ibHumidity"
@@ -54,12 +58,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/ibWind"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="humidity" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_weight="5"
         android:layout_margin="15dp"/>
 </LinearLayout>

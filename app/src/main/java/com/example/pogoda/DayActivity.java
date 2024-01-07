@@ -57,10 +57,13 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         lineEntries = getDataSetTemperute();
         lineDataSet = new LineDataSet(lineEntries,"Temperatura");
         lineDataSet.setColors(Color.RED);
+        lineDataSet.setCircleColors(Color.GREEN);
         data = new LineData(lineDataSet);
             lineChart.setData(data);
             lineChart.animateXY(200,200);
             lineChart.invalidate();
+            lineChart.setDescription(null);
+
 
         ibTemperature.setOnClickListener(this);
         ibWind.setOnClickListener(this);
@@ -73,7 +76,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         if (getIntent().hasExtra("temperature")) temperature_2m = getIntent().getStringExtra("temperature");
         int position = getIntent().getIntExtra("position", 0);
         String[] temperature = temperature_2m.substring(1, temperature_2m.length() - 1).split(",");
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < 24; i+=2) {
             lineEntries.add(new Entry(i, Float.parseFloat(temperature[i + (position * 24)])));
         }
         return lineEntries;
@@ -84,7 +87,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         if (getIntent().hasExtra("wind_speed_10m")) wind_speed_10m = getIntent().getStringExtra("wind_speed_10m");
         int position = getIntent().getIntExtra("position", 0);
         String[] wind = wind_speed_10m.substring(1, wind_speed_10m.length() - 1).split(",");
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < 24; i+=2) {
             lineEntries.add(new Entry(i, Float.parseFloat(wind[i + (position * 24)])));
         }
         return lineEntries;
@@ -95,7 +98,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         if (getIntent().hasExtra("rain")) rain = getIntent().getStringExtra("rain");
         int position = getIntent().getIntExtra("position", 0);
         String[] rain2 = rain.substring(1, rain.length() - 1).split(",");
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < 24; i+=2) {
             lineEntries.add(new Entry(i, Float.parseFloat(rain2[i + (position * 24)])));
         }
         return lineEntries;
