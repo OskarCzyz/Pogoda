@@ -1,8 +1,8 @@
-# Pogoda
-School project on android studio
-
 # Instalation
 https://www.mediafire.com/file/q2vqyhfafprspa0/base.apk/file
+
+# Pogoda
+School project on android studio
 
 Aplikacja służy do sprawdzania pogody w powiecie cieszyńskim. Można sprawdzić szczeczegółowo prognoze dla każdej gminy.
 Jest przeznaczona dla każdej osoby mieszkającej w powiecie cieszyńskim, lub zainteresowana przyjazdem do tego powiatu.
